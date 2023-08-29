@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slider</title>
+    <link rel="stylesheet" href="./styleslider.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="slider">
+        <div class="slider__slides">
+          <div class="slider__slide active">
+            <img src="./slider-images/1.jpg" alt="koala" />
+          </div>
+          <div class="slider__slide">
+            <img src="./slider-images/2.jpg" alt="koala" />
+          </div>
+          <div class="slider__slide">
+            <img src="./slider-images/3.jpg" alt="koala" />
+          </div>
+          <div class="slider__slide">
+            <img src="./slider-images/4.jpg" alt="koala" />
+          </div>
+        </div>
+        <div id="nav-button--prev" class="slider__nav-button">&#10140;</div>
+        <div id="nav-button--next" class="slider__nav-button">&#10140;</div>
+        <div class="slider__nav">
+          <div class="slider__navlink active"></div>
+          <div class="slider__navlink"></div>
+          <div class="slider__navlink"></div>
+          <div class="slider__navlink"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let slides = document.getElementsByClassName("slider__slide");
+      let navlinks = document.getElementsByClassName("slider__navlink");
+      let currentSlide = 0;
+      let isAnimating = false;
+
+      document
+        .getElementById("nav-button--next")
+        .addEventListener("click", () => {
+          if (!isAnimating) {
+            changeSlide(currentSlide + 1);
+          }
+        });
+
+      document
+        .getElementById("nav-button--prev")
+        .addEventListener("click", () => {
+          if (!isAnimating) {
+            changeSlide(currentSlide - 1);
+          }
+        });
+
+      function changeSlide(moveTo) {
+        if (isAnimating) {
+          return;
+        }
+
+        isAnimating = true;
+
+        if (moveTo >= slides.length) {
+          moveTo = 0;
+        }
+        if (moveTo < 0) {
+          moveTo = slides.length - 1;
+        }
+
+        slides[currentSlide].classList.remove("active");
+        navlinks[currentSlide].classList.remove("active");
+        slides[moveTo].classList.add("active");
+        navlinks[moveTo].classList.add("active");
+
+        currentSlide = moveTo;
+
+        const animationDuration = 1000;
+        const distance = 100;
+        let currentPosition = 0;
+        let elapsedFrames = 0;
+
+        const intervalId = setInterval(() => {
+          if (elapsedFrames >= (animationDuration / 1000) * 60) {
+            clearInterval(intervalId);
+            isAnimating = false;
+          } else {
+            currentPosition -= distance / (animationDuration / 1000) / 60;
+            slides[currentSlide].style.left = currentPosition + "%";
+            slides[moveTo].style.left = 100 + currentPosition + "%";
+            elapsedFrames++;
+          }
+        }, 1000 / 60);
+
+        setTimeout(() => {
+          slides[currentSlide].style.left = "200%";
+          slides[moveTo].style.left = "0";
+        }, animationDuration);
+      }
+
+      document
+        .querySelectorAll(".slider__navlink")
+        .forEach((bullet, bulletIndex) => {
+          bullet.addEventListener("click", () => {
+            if (currentSlide !== bulletIndex) {
+              changeSlide(bulletIndex);
+            }
+          });
+        });
+    </script>
+  </body>
+</html>
