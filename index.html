@@ -32,7 +32,7 @@
           <span class="bar"></span>
         </div>
         <div class="nav-links" id="navLinks">
-          <img src="./img/close.svg" id="closeNav" />
+          <img src="./img/close.svg" id="closeNav" alt="close icon" />
           <button>Contact sales</button>
           <div class="mobile-links">
             <p>For Business</p>
@@ -50,7 +50,7 @@
     <main>
       <div class="hero">
         <div class="hero-text">
-          <h1>Everyone is an Influencer</h1>
+          <h1>Everyone is an Influencer</h1>
           <p>
             Budss is a payments as a service and WOM engine dedicated to
             acquisition and retention of customers to your business.
@@ -332,16 +332,16 @@
       </form>
     </div>
     <div class="popup" id="successPopup">
-      <span class="close-icon" id="closeSuccesForm">&times;</span>
+      <span class="close-icon closeSuccessPopup">&times;</span>
       <img src="./img/received.png" />
       <h4>Thank you!</h4>
       <p>
         Thank you, we have received your application and will contact you soon!
       </p>
-      <button class="close-popup" id="closeSuccessPopup">Super!</button>
+      <button class="close-popup closeSuccessPopup">Super!</button>
     </div>
     <script>
-      const mainHeader = document.getElementById("mainHeader");
+      const mainHeader = document.getElementById("mainHeader"); //to fix header
 
       window.addEventListener("scroll", () => {
         const scrollPosition = window.scrollY;
@@ -354,7 +354,7 @@
       });
     </script>
     <script>
-      const cookiePopup = document.getElementById("cookiePopup");
+      const cookiePopup = document.getElementById("cookiePopup"); //accept cookies
       const acceptCookiesButton = document.getElementById("acceptCookies");
 
       setTimeout(() => {
@@ -371,18 +371,22 @@
       const navLinks = document.getElementById("navLinks");
 
       hamburgerIcon.addEventListener("click", () => {
-        navLinks.classList.toggle("active");
+        navLinks.classList.toggle("active"); //show humberger menu in mobile devices
       });
 
       const closeNavIcon = document.getElementById("closeNav");
       closeNavIcon.addEventListener("click", () => {
-        navLinks.classList.remove("active");
+        navLinks.classList.remove("active"); //close humburger menu
       });
 
       const formPopup = document.getElementById("formPopup");
       const showFormButton = document.querySelectorAll(".showForm");
       const submitButton = document.getElementById("submitButton");
       const closeFormButton = document.getElementById("closeForm");
+
+      const successPopup = document.getElementById("successPopup");
+      const closeSuccessPopupButton =
+        document.querySelectorAll(".closeSuccessPopup");
 
       const nameInput = document.getElementById("name");
       const nameError = document.getElementById("nameError");
@@ -392,11 +396,11 @@
 
       showFormButton.forEach((button) => {
         button.addEventListener("click", () => {
-          formPopup.style.display = "flex";
+          formPopup.style.display = "flex"; //show form
         });
       });
 
-      const requiredFields = document.querySelectorAll("input[required]");
+      const requiredFields = document.querySelectorAll("input[required]"); //check if requiered fields were filled
       requiredFields.forEach((field) => {
         field.addEventListener("input", () => {
           const allRequiredFieldsFilled = Array.from(requiredFields).every(
@@ -407,21 +411,19 @@
       });
 
       closeFormButton.addEventListener("click", () => {
-        formPopup.style.display = "none";
+        formPopup.style.display = "none"; //close form
       });
 
       submitButton.addEventListener("click", (event) => {
         event.preventDefault();
         successPopup.style.display = "flex";
-        formPopup.style.display = "none";
+        formPopup.style.display = "none"; //submit form
       });
 
-      const successPopup = document.getElementById("successPopup");
-
-      const closeSuccessPopupButton =
-        document.getElementById("closeSuccessPopup");
-      closeSuccessPopupButton.addEventListener("click", () => {
-        successPopup.style.display = "none";
+      closeSuccessPopupButton.forEach((close) => {
+        close.addEventListener("click", () => {
+          successPopup.style.display = "none";
+        });
       });
     </script>
   </body>

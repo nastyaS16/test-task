@@ -910,6 +910,11 @@ label {
   right: 20px;
   font-size: 20px;
   cursor: pointer;
+  padding: 0;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  color: gray;
 }
 
 .error-message {
